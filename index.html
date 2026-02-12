@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>কোচিং ছাড়াই ইংরেজি শিখুন — KSB Masterclass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Hind+Siliguri:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   ROOT & RESET
+═══════════════════════════════════════ */
+:root{
+  --gd:#0a2e14; --gk:#0f3d1a; --gm:#1a5e2a;
+  --gb:#1e7a35; --gl:#2db54a;
+  --y:#f5c518;  --yl:#ffd84d;
+  --w:#ffffff;  --ow:#f4f9f5;
+  --tm:rgba(255,255,255,.6);
+  --td:rgba(255,255,255,.38);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--gd);color:var(--w);font-family:'Hind Siliguri',sans-serif;overflow-x:hidden;cursor:none;}
+
+/* noise */
+body::after{content:'';position:fixed;inset:0;z-index:999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  opacity:.35;mix-blend-mode:overlay;}
+
+/* cursor */
+.cursor{position:fixed;width:10px;height:10px;background:var(--y);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s,border .2s;}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid rgba(245,197,24,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .28s,height .28s;}
+
+/* ═══════════════════════════════════════
+   IMAGE PLACEHOLDER SYSTEM
+   Replace src="book.jpg" with your actual image path
+═══════════════════════════════════════ */
+.img-slot{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(30,122,53,.18) 0%,rgba(10,46,20,.6) 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;
+}
+.img-slot img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  opacity:1;
+}
+.hero-book-img img{ object-fit:contain; }
+.author-img img{ object-fit:contain; background:var(--gk); }
+.nav-logo .img-slot img,
+.footer-logo .img-slot img{ object-fit:contain; padding:6px; }
+.img-slot img.loaded{opacity:1;}
+.img-slot .slot-hint{ display:none; }
+.slot-icon{
+  width:52px;height:52px;border-radius:50%;
+  border:2px dashed rgba(245,197,24,.5);
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(245,197,24,.06);
+  font-size:1.4rem;
+}
+.slot-label{
+  font-family:'DM Mono',monospace;
+  font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(245,197,24,.55);text-align:center;line-height:1.5;
+}
+
+/* Dark-bg variant (on green bg) */
+.img-slot.on-green{background:linear-gradient(135deg,rgba(15,61,26,.8),rgba(10,46,20,.9));}
+/* Light-bg variant (on off-white) */
+.img-slot.on-light{background:linear-gradient(135deg,rgba(30,122,53,.1),rgba(10,46,20,.08));}
+.img-slot.on-light .slot-label{color:rgba(30,122,53,.55);}
+.img-slot.on-light .slot-icon{border-color:rgba(30,122,53,.4);background:rgba(30,122,53,.06);}
+.img-slot.on-light .slot-icon{color:var(--gm);}
+
+/* ═══════════════════════════════════════
+   NAV
+═══════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:1.2rem 5%;
+  display:flex;justify-content:space-between;align-items:center;
+  gap:1rem;
+}
+nav::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(10,46,20,.96) 0%,transparent 100%);
+  z-index:-1;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+/* NAV LOGO */
+.nav-logo{
+  flex-shrink:0;
+  width:120px;height:44px;border-radius:6px;overflow:hidden;
+}
+.nav-logo .img-slot{width:100%;height:100%;border-radius:6px;border:2px dashed rgba(245,197,24,.35);}
+.nav-logo .slot-icon{width:28px;height:28px;font-size:.9rem;}
+.nav-logo .slot-label{font-size:.42rem;letter-spacing:.15em;}
+
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;
+  color:rgba(255,255,255,.5);text-decoration:none;text-transform:uppercase;
+  transition:color .3s;
+}
+.nav-links a:hover{color:var(--y);}
+.nav-cta{
+  flex-shrink:0;
+  background:var(--y);color:var(--gd);
+  font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.15em;
+  text-transform:uppercase;padding:.7rem 1.5rem;
+  text-decoration:none;font-weight:600;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+  transition:background .3s,color .3s;white-space:nowrap;
+}
+.nav-cta:hover{background:var(--w);}
+
+/* hamburger */
+.nav-toggle{
+  display:none;flex-direction:column;gap:5px;cursor:none;
+  padding:.5rem;background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.25);
+  border-radius:4px;
+}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--y);border-radius:2px;transition:all .3s;}
+
+/* mobile nav drawer */
+.nav-drawer{
+  display:none;position:fixed;top:0;right:0;bottom:0;
+  width:280px;background:var(--gk);
+  z-index:300;padding:5rem 2rem 3rem;
+  transform:translateX(100%);transition:transform .35s ease;
+  border-left:1px solid rgba(245,197,24,.15);
+}
+.nav-drawer.open{transform:translateX(0);}
+.nav-drawer ul{list-style:none;display:flex;flex-direction:column;gap:1.5rem;}
+.nav-drawer ul a{
+  font-family:'DM Mono',monospace;font-size:.75rem;letter-spacing:.2em;
+  color:rgba(255,255,255,.6);text-decoration:none;text-transform:uppercase;
+  display:block;padding:.75rem 0;
+  border-bottom:1px solid rgba(245,197,24,.1);
+  transition:color .3s;
+}
+.nav-drawer ul a:hover{color:var(--y);}
+.nav-drawer .drawer-cta{
+  display:block;margin-top:2rem;
+  background:var(--y);color:var(--gd);
+  font-family:'Oswald',sans-serif;font-size:1rem;font-weight:600;
+  text-decoration:none;text-align:center;
+  padding:1rem;letter-spacing:.08em;text-transform:uppercase;
+}
+.nav-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:299;
+  opacity:0;transition:opacity .3s;
+}
+.nav-overlay.open{opacity:1;}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;padding-top:76px;
+}
+.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.hero-bg::before{
+  content:'';position:absolute;
+  top:-20%;right:-10%;width:min(700px,90vw);height:min(700px,90vw);
+  background:radial-gradient(ellipse,rgba(30,122,53,.35) 0%,transparent 65%);border-radius:50%;
+  transition:transform 0.3s ease-out;
+}
+.hero-bg::after{
+  content:'';position:absolute;
+  bottom:-15%;left:30%;width:min(500px,70vw);height:min(500px,70vw);
+  background:radial-gradient(ellipse,rgba(245,197,24,.07) 0%,transparent 60%);border-radius:50%;
+  transition:transform 0.25s ease-out;
+}
+
+/* Premium Mouse-Interactive Layers */
+.hero-interactive-layer{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  transition:transform 0.2s ease-out, opacity 0.3s ease;
+}
+.hero-glow-1{
+  top:10%;left:5%;
+  width:400px;height:400px;
+  background:radial-gradient(circle, rgba(245,197,24,0.25) 0%, rgba(245,197,24,0.08) 40%, transparent 70%);
+  filter:blur(40px);
+  z-index:1;
+}
+.hero-glow-2{
+  bottom:20%;right:8%;
+  width:350px;height:350px;
+  background:radial-gradient(circle, rgba(30,122,53,0.3) 0%, rgba(30,122,53,0.1) 50%, transparent 70%);
+  filter:blur(50px);
+  z-index:1;
+}
+.hero-glow-3{
+  top:50%;left:50%;
+  width:300px;height:300px;
+  background:radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+  filter:blur(35px);
+  z-index:1;
+  transform:translate(-50%, -50%);
+}
+.hero-particles{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+}
+.hero-particle{
+  position:absolute;
+  width:3px;height:3px;
+  background:rgba(245,197,24,0.6);
+  border-radius:50%;
+  filter:blur(1px);
+  transition:transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.magnetic-spotlight{
+  position:absolute;
+  width:600px;height:600px;
+  background:radial-gradient(circle, rgba(245,197,24,0.15) 0%, rgba(245,197,24,0.05) 30%, transparent 60%);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:3;
+  filter:blur(60px);
+  opacity:0;
+  transition:opacity 0.3s ease;
+  transform:translate(-50%, -50%);
+}
+
+/* Animated Network/Constellation Effect */
+.hero-network-canvas{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+}
+#heroCanvas{
+  width:100%;
+  height:100%;
+  opacity:0.7;
+}
+.hex-deco{
+  position:absolute;width:min(320px,50vw);height:min(320px,50vw);
+  border:1px solid rgba(245,197,24,.07);border-radius:50%;
+  top:18%;right:3%;animation:rotateSlow 30s linear infinite;
+}
+.hex-deco::before{content:'';position:absolute;inset:20px;border:1px solid rgba(245,197,24,.04);border-radius:50%;}
+@keyframes rotateSlow{to{transform:rotate(360deg);}}
+
+/* HERO LEFT */
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:4rem 3rem 8rem 8%;
+  position:relative;z-index:2;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:rgba(245,197,24,.1);border:1px solid rgba(245,197,24,.28);
+  padding:.45rem 1rem;border-radius:100px;width:fit-content;margin-bottom:1.75rem;
+  opacity:0;animation:fadeUp .8s ease .3s forwards;
+}
+.badge-dot{width:7px;height:7px;background:var(--y);border-radius:50%;animation:pulseDot 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(245,197,24,.5);}50%{box-shadow:0 0 0 6px rgba(245,197,24,0);}}
+.badge-text{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.16em;color:var(--y);text-transform:uppercase;}
+
+.hero-title{
+  font-family:'Hind Siliguri',sans-serif;
+  font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:700;line-height:1.2;
+  margin-bottom:.7rem;
+  opacity:0;animation:fadeUp .9s ease .5s forwards;
+}
+.hero-title .hl{
+  color:var(--y);position:relative;display:inline;
+}
+.hero-title .hl::after{
+  content:'';position:absolute;bottom:-3px;left:0;right:0;
+  height:3px;background:linear-gradient(90deg,var(--y),transparent);
+}
+.hero-en{
+  font-family:'Oswald',sans-serif;font-size:clamp(1rem,2vw,1.4rem);
+  font-weight:600;letter-spacing:.08em;color:var(--gl);
+  text-transform:uppercase;margin-bottom:1.4rem;
+  opacity:0;animation:fadeUp .9s ease .65s forwards;
+}
+.hero-desc{
+  font-size:clamp(.95rem,1.5vw,1.08rem);font-weight:300;line-height:1.85;
+  color:rgba(255,255,255,.6);max-width:440px;margin-bottom:2.2rem;
+  opacity:0;animation:fadeUp .9s ease .8s forwards;
+}
+.skill-pills{
+  display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .9s ease .9s forwards;
+}
+.pill{
+  display:flex;align-items:center;gap:.45rem;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  padding:.45rem 1rem;border-radius:100px;
+}
+.pill-icon{font-size:.9rem;}
+.pill span{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.12em;color:rgba(255,255,255,.6);text-transform:uppercase;}
+.hero-cta{
+  display:flex;align-items:center;gap:2rem;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .9s ease 1s forwards;
+}
+.btn-main{
+  display:inline-flex;align-items:center;gap:.75rem;
+  background:var(--y);color:var(--gd);
+  font-family:'Oswald',sans-serif;font-size:.95rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+  padding:1rem 2.2rem;position:relative;overflow:hidden;
+  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));
+  transition:all .3s;
+}
+.btn-main::before{content:'';position:absolute;inset:0;background:var(--w);transform:translateX(-101%);transition:transform .4s cubic-bezier(.76,0,.24,1);}
+.btn-main:hover::before{transform:translateX(0);}
+.btn-main span{position:relative;z-index:1;}
+.price-tag{display:flex;flex-direction:column;}
+.price-from{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.15em;color:var(--tm);text-transform:uppercase;}
+.price-amount{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;color:var(--y);line-height:1;}
+.price-currency{font-size:.82rem;font-weight:400;color:rgba(245,197,24,.7);}
+
+/* HERO RIGHT — image */
+.hero-right{
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;padding:4rem 5% 6rem 2rem;
+}
+.hero-img-wrap{
+  position:relative;
+  opacity:0;animation:fadeIn 1.2s ease .6s forwards;
+  width:100%;max-width:480px;
+}
+.hero-img-glow{
+  position:absolute;inset:-40px;
+  background:radial-gradient(ellipse,rgba(30,122,53,.5) 0%,transparent 65%);
+  border-radius:50%;animation:glowPulse 4s ease-in-out infinite;pointer-events:none;
+}
+@keyframes glowPulse{0%,100%{opacity:.6;transform:scale(1);}50%{opacity:1;transform:scale(1.12);}}
+
+/* Hero book image placeholder */
+.hero-book-img{
+  width:100%;aspect-ratio:3/4;border-radius:12px;overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,.7),0 0 0 1px rgba(245,197,24,.15);
+  animation:bookFloat 6s ease-in-out infinite;
+}
+@keyframes bookFloat{0%,100%{transform:translateY(0) rotate(-1.5deg);}50%{transform:translateY(-16px) rotate(-1.5deg);}}
+.hero-book-img .slot-icon{font-size:2.5rem;width:70px;height:70px;}
+.hero-book-img .slot-label{font-size:.6rem;}
+
+/* floating badge on book */
+.book-badge{
+  position:absolute;bottom:-14px;right:-14px;
+  background:var(--y);color:var(--gd);
+  font-family:'Oswald',sans-serif;font-size:.85rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:.6rem 1.2rem;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+  white-space:nowrap;z-index:3;
+}
+.book-badge-pages{
+  position:absolute;top:-14px;left:-14px;
+  background:var(--gb);border:1px solid rgba(245,197,24,.3);
+  color:var(--y);
+  font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.15em;
+  text-transform:uppercase;padding:.5rem 1rem;border-radius:100px;
+  white-space:nowrap;z-index:3;
+}
+
+/* hero stats */
+.hero-stats{
+  position:absolute;bottom:2rem;left:8%;
+  display:flex;align-items:center;gap:2rem;flex-wrap:wrap;
+  opacity:0;animation:fadeUp .8s ease 1.3s forwards;
+}
+.h-stat{text-align:left;}
+.h-stat-num{font-family:'Oswald',sans-serif;font-size:1.8rem;font-weight:700;color:var(--y);display:block;line-height:1;}
+.h-stat-lbl{font-family:'DM Mono',monospace;font-size:.45rem;letter-spacing:.16em;color:var(--td);text-transform:uppercase;}
+.h-sep{width:1px;height:32px;background:rgba(245,197,24,.2);}
+
+/* scroll cue */
+.scroll-cue{
+  position:absolute;bottom:2rem;right:5%;
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;
+  opacity:0;animation:fadeIn 1s ease 1.6s forwards;
+}
+.scroll-cue span{font-family:'DM Mono',monospace;font-size:.45rem;letter-spacing:.25em;color:var(--td);text-transform:uppercase;writing-mode:vertical-rl;}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--y),transparent);animation:scrollDown 2.2s ease-in-out infinite;}
+@keyframes scrollDown{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+
+/* ═══════════════════════════════════════
+   LEARN SECTION
+═══════════════════════════════════════ */
+.section-learn{background:var(--ow);color:var(--gd);padding:7rem 0;position:relative;overflow:hidden;}
+.section-learn::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,var(--gb),var(--y),var(--gb),transparent);}
+.inner{max-width:1200px;margin:0 auto;padding:0 6%;}
+.sec-tag{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.35em;color:var(--gb);text-transform:uppercase;display:block;margin-bottom:1rem;}
+.sec-h{font-family:'Hind Siliguri',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--gd);margin-bottom:.5rem;}
+.sec-h .yl{color:var(--gb);}
+.sec-sub{font-size:clamp(.9rem,1.5vw,1.05rem);font-weight:300;color:#4a6858;margin-bottom:3.5rem;max-width:580px;}
+
+/* learn + author grid */
+.learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;}
+.learn-card{
+  background:var(--w);border:1px solid rgba(30,122,53,.1);
+  padding:2.25rem 1.75rem;position:relative;
+  transition:all .35s ease;overflow:hidden;
+}
+.learn-card::before{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--gb),var(--y));
+  transform:scaleX(0);transform-origin:left;transition:transform .4s ease;
+}
+.learn-card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(10,46,20,.1);}
+.learn-card:hover::before{transform:scaleX(1);}
+.learn-num{font-family:'Oswald',sans-serif;font-size:3rem;font-weight:700;color:rgba(30,122,53,.07);position:absolute;top:.3rem;right:.9rem;line-height:1;}
+.learn-icon{font-size:1.8rem;margin-bottom:.9rem;display:block;}
+.learn-card h3{font-family:'Hind Siliguri',sans-serif;font-size:1.1rem;font-weight:600;color:var(--gd);margin-bottom:.4rem;}
+.learn-card p{font-size:.93rem;font-weight:300;color:#4a6858;line-height:1.7;}
+
+/* ═══════════════════════════════════════
+   AUTHOR SECTION — with image placeholder
+═══════════════════════════════════════ */
+.section-author{background:var(--gk);padding:7rem 0;position:relative;}
+.section-author::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(245,197,24,.25),transparent);}
+.author-grid{display:grid;grid-template-columns:1fr 1.8fr;gap:5rem;align-items:center;}
+
+/* Author image */
+.author-img-frame{
+  position:relative;width:100%;max-width:300px;margin:0 auto;
+}
+.author-img-frame::before{
+  content:'';position:absolute;inset:-10px;
+  border:1px solid rgba(245,197,24,.3);border-radius:4px;
+  pointer-events:none;z-index:0;
+}
+.author-img-frame::after{
+  content:'';position:absolute;inset:-20px;
+  border:1px solid rgba(245,197,24,.12);border-radius:4px;
+  pointer-events:none;z-index:0;
+}
+.author-img{
+  width:100%;aspect-ratio:3/4;border-radius:2px;overflow:hidden;
+  position:relative;z-index:1;
+}
+
+.author-info{}
+.author-tag{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.35em;color:var(--y);text-transform:uppercase;display:block;margin-bottom:1.2rem;}
+.author-name{font-family:'Hind Siliguri',sans-serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:var(--w);margin-bottom:.4rem;line-height:1.15;}
+.author-role{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:rgba(245,197,24,.6);text-transform:uppercase;margin-bottom:2rem;display:block;}
+.author-bio{font-family:'Hind Siliguri',sans-serif;font-size:1.05rem;font-weight:300;line-height:1.85;color:rgba(255,255,255,.62);margin-bottom:2.5rem;}
+.author-social{display:flex;gap:1.25rem;flex-wrap:wrap;}
+.social-link{
+  font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.15em;
+  color:rgba(255,255,255,.4);text-decoration:none;text-transform:uppercase;
+  border-bottom:1px solid rgba(245,197,24,.25);padding-bottom:2px;
+  transition:all .3s;
+}
+.social-link:hover{color:var(--y);border-bottom-color:var(--y);}
+
+/* ═══════════════════════════════════════
+   PRICING
+═══════════════════════════════════════ */
+.section-pricing{background:var(--gd);padding:7rem 0;position:relative;}
+.section-pricing::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(245,197,24,.3),transparent);}
+.pricing-top{text-align:center;margin-bottom:4rem;}
+.pricing-top .sec-tag{color:var(--y);}
+.pricing-top .sec-h{color:var(--w);}
+.pricing-top .sec-h .yl{color:var(--y);}
+.pricing-sub{font-size:1.02rem;font-weight:300;color:var(--tm);margin-top:.3rem;font-style:italic;}
+
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;align-items:start;}
+.p-card{
+  border:1px solid rgba(245,197,24,.14);padding:2.75rem 2rem;
+  position:relative;transition:all .35s ease;
+  background:rgba(255,255,255,.03);text-align:left;
+  clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px));
+}
+.p-card:hover{border-color:rgba(245,197,24,.38);background:rgba(255,255,255,.05);transform:translateY(-8px);}
+.p-card.hot{border-color:var(--y);background:rgba(245,197,24,.06);transform:scale(1.04);}
+.p-card.hot:hover{transform:scale(1.04) translateY(-8px);}
+.p-badge{
+  position:absolute;top:-1px;left:2rem;
+  background:var(--y);color:var(--gd);
+  font-family:'DM Mono',monospace;font-size:.48rem;letter-spacing:.17em;
+  text-transform:uppercase;padding:.32rem .85rem;font-weight:600;
+}
+.p-format{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.25em;color:var(--y);text-transform:uppercase;display:block;margin-bottom:1.2rem;}
+.p-price{font-family:'Oswald',sans-serif;font-size:3rem;font-weight:700;color:var(--w);line-height:1;margin-bottom:.2rem;}
+.p-price sup{font-size:1.3rem;font-weight:400;color:var(--y);vertical-align:super;}
+.p-currency{font-family:'DM Mono',monospace;font-size:.56rem;color:var(--td);letter-spacing:.1em;display:block;margin-bottom:2rem;}
+.p-divider{width:100%;height:1px;background:rgba(245,197,24,.12);margin-bottom:1.6rem;}
+.p-features{list-style:none;margin-bottom:2rem;}
+.p-features li{
+  font-family:'Hind Siliguri',sans-serif;font-size:.97rem;
+  color:rgba(255,255,255,.6);padding:.45rem 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  display:flex;align-items:center;gap:.6rem;
+}
+.p-features li::before{content:'✓';color:var(--gl);font-size:.7rem;font-weight:700;flex-shrink:0;}
+.btn-buy{
+  display:block;width:100%;background:transparent;
+  border:1px solid rgba(245,197,24,.38);color:var(--y);
+  font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+  padding:1rem;cursor:none;transition:all .3s;
+  position:relative;overflow:hidden;
+}
+.btn-buy::before{content:'';position:absolute;inset:0;background:var(--y);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.76,0,.24,1);}
+.btn-buy:hover::before{transform:scaleX(1);}
+.btn-buy:hover{color:var(--gd);}
+.btn-buy span{position:relative;z-index:1;}
+.p-card.hot .btn-buy{background:var(--y);color:var(--gd);border-color:var(--y);}
+.p-card.hot .btn-buy::before{background:var(--w);}
+.p-card.hot .btn-buy:hover{color:var(--gd);}
+
+/* payment row */
+.payment-row{
+  display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+  gap:1.2rem;padding:2rem 0;
+  border-top:1px solid rgba(245,197,24,.08);
+  border-bottom:1px solid rgba(245,197,24,.08);
+  margin-top:3rem;
+}
+.pay-label{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.15em;color:var(--td);text-transform:uppercase;}
+.pay-method{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  padding:.38rem .9rem;font-family:'Oswald',sans-serif;
+  font-size:.7rem;font-weight:600;letter-spacing:.07em;
+  color:rgba(255,255,255,.45);text-transform:uppercase;
+}
+
+/* ═══════════════════════════════════════
+   REVIEWS
+═══════════════════════════════════════ */
+.section-reviews{background:var(--gk);padding:7rem 0;}
+.reviews-inner{max-width:1200px;margin:0 auto;padding:0 6%;}
+.reviews-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1.5rem;}
+.reviews-top .sec-tag{color:var(--y);}
+.reviews-top .sec-h{color:var(--w);}
+.reviews-top .sec-h .yl{color:var(--y);}
+.overall-rating{display:flex;flex-direction:column;align-items:flex-end;}
+.rating-big{font-family:'Oswald',sans-serif;font-size:3.2rem;font-weight:700;color:var(--y);line-height:1;}
+.rating-stars{color:var(--y);font-size:.95rem;letter-spacing:.15em;}
+.rating-count{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.12em;color:var(--td);text-transform:uppercase;}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+.r-card{border-top:2px solid var(--gb);padding:1.75rem 0 0;transition:border-color .3s;}
+.r-card:hover{border-top-color:var(--y);}
+.r-stars{margin-bottom:1.1rem;}
+.r-stars span{color:var(--y);font-size:.7rem;letter-spacing:.14em;}
+.r-text{font-family:'Hind Siliguri',sans-serif;font-size:1rem;font-weight:300;font-style:italic;line-height:1.8;color:rgba(255,255,255,.65);margin-bottom:1.5rem;}
+.r-author{display:flex;align-items:center;gap:.8rem;}
+.r-avatar{
+  width:40px;height:40px;border-radius:50%;overflow:hidden;flex-shrink:0;
+}
+/* avatar as image slot */
+.r-avatar .img-slot{width:100%;height:100%;}
+.r-avatar .img-slot .slot-hint{gap:.2rem;}
+.r-avatar .img-slot .slot-icon{width:26px;height:26px;font-size:.8rem;border-width:1.5px;}
+.r-avatar .img-slot .slot-label{display:none;}
+/* fallback letter avatar */
+.r-avatar-fallback{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--gl),var(--y));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:700;color:var(--gd);
+}
+.r-name{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.12em;color:var(--w);text-transform:uppercase;display:block;}
+.r-role{font-family:'Hind Siliguri',sans-serif;font-size:.82rem;color:var(--td);display:block;}
+
+/* ═══════════════════════════════════════
+   FAQ
+═══════════════════════════════════════ */
+.section-faq{background:var(--ow);color:var(--gd);padding:7rem 0;}
+.faq-inner{max-width:760px;margin:0 auto;padding:0 6%;}
+.faq-top{text-align:center;margin-bottom:3.5rem;}
+.faq-top .sec-tag{color:var(--gb);}
+.faq-top .sec-h{color:var(--gd);}
+.faq-item{border-bottom:1px solid rgba(10,46,20,.1);overflow:hidden;}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;cursor:none;transition:color .3s;}
+.faq-q:hover{color:var(--gb);}
+.faq-q-txt{font-family:'Hind Siliguri',sans-serif;font-size:1.05rem;font-weight:600;padding-right:1rem;}
+.faq-ic{font-family:'DM Mono',monospace;font-size:1.35rem;color:var(--gb);flex-shrink:0;transition:transform .3s;}
+.faq-item.open .faq-ic{transform:rotate(45deg);}
+.faq-ans{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .4s ease;}
+.faq-item.open .faq-ans{max-height:200px;padding-bottom:1.2rem;}
+.faq-ans p{font-family:'Hind Siliguri',sans-serif;font-size:.97rem;line-height:1.8;color:#4a6858;}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+footer{background:var(--gd);padding:5rem 0 2.5rem;border-top:1px solid rgba(245,197,24,.12);}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 6%;}
+.footer-top{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.05);margin-bottom:2rem;
+  flex-wrap:wrap;gap:3rem;
+}
+.footer-brand{max-width:260px;}
+/* footer logo image slot */
+.footer-logo{width:110px;height:42px;border-radius:5px;overflow:hidden;margin-bottom:1.1rem;}
+.footer-logo .img-slot{width:100%;height:100%;border:2px dashed rgba(245,197,24,.3);border-radius:5px;}
+.footer-logo .slot-icon{width:24px;height:24px;font-size:.9rem;}
+.footer-logo .slot-label{font-size:.4rem;letter-spacing:.12em;}
+.footer-tagline{font-family:'Hind Siliguri',sans-serif;font-size:.92rem;font-weight:300;color:var(--tm);line-height:1.7;}
+.footer-cols{display:flex;gap:4rem;flex-wrap:wrap;}
+.footer-col h4{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.27em;color:var(--y);text-transform:uppercase;margin-bottom:1.2rem;}
+.footer-col ul{list-style:none;}
+.footer-col li{margin-bottom:.55rem;}
+.footer-col a{font-family:'Hind Siliguri',sans-serif;font-size:.92rem;font-weight:300;color:rgba(255,255,255,.38);text-decoration:none;transition:color .3s;}
+.footer-col a:hover{color:var(--w);}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.f-copy{font-family:'DM Mono',monospace;font-size:.5rem;color:rgba(255,255,255,.18);letter-spacing:.1em;}
+.f-legal{display:flex;gap:1.75rem;}
+.f-legal a{font-family:'DM Mono',monospace;font-size:.5rem;color:rgba(255,255,255,.18);text-decoration:none;transition:color .3s;}
+.f-legal a:hover{color:rgba(255,255,255,.45);}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.12s;}.d2{transition-delay:.24s;}.d3{transition-delay:.36s;}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — TABLET (≤900px)
+═══════════════════════════════════════ */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:auto;}
+  .hero-left{padding:5rem 5% 2rem;}
+  .hero-right{padding:2rem 5% 5rem;justify-content:flex-start;}
+  .hero-img-wrap{max-width:340px;}
+  .hero-stats{left:5%;bottom:1rem;}
+  .scroll-cue{display:none;}
+  .learn-grid{grid-template-columns:1fr 1fr;}
+  .author-grid{grid-template-columns:1fr;gap:3rem;}
+  .author-img-frame{max-width:220px;}
+  .cards-grid{grid-template-columns:1fr;}
+  .p-card.hot{transform:scale(1);}
+  .p-card.hot:hover{transform:translateY(-8px);}
+  .reviews-grid{grid-template-columns:1fr;}
+  nav .nav-links,.nav-cta{display:none;}
+  .nav-toggle{display:flex;}
+  .nav-drawer{display:block;}
+  .footer-top{flex-direction:column;}
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE — MOBILE (≤600px)
+═══════════════════════════════════════ */
+@media(max-width:600px){
+  nav{padding:1rem 5%;}
+  .hero-left{padding:4.5rem 5% 2rem;}
+  .hero-title{font-size:2rem;}
+  .hero-en{font-size:.95rem;}
+  .skill-pills .pill span{font-size:.5rem;}
+  .hero-cta{flex-direction:column;align-items:flex-start;gap:1.2rem;}
+  .btn-main{width:100%;justify-content:center;}
+  .hero-stats{position:relative;bottom:auto;left:auto;padding:1.5rem 5% 0;width:100%;}
+  .learn-grid{grid-template-columns:1fr;}
+  .hero-img-wrap{max-width:280px;}
+  .book-badge,.book-badge-pages{font-size:.7rem;padding:.5rem .9rem;}
+  .inner,.pricing-inner .inner,.reviews-inner,.faq-inner,.footer-inner{padding:0 5%;}
+  .pricing-inner{padding:0 5%;}
+  .reviews-top{flex-direction:column;align-items:flex-start;}
+  .overall-rating{align-items:flex-start;}
+  .footer-cols{flex-direction:column;gap:2rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<!-- ══════════════════════
+     NAVIGATION
+══════════════════════ -->
+<nav>
+  <!-- LOGO: src="book.jpg" তে আপনার logo image path দিন -->
+  <div class="nav-logo">
+    <div class="img-slot on-green">
+      <img src="logo-main.png.png" alt="KSB Logo" id="img-logo-nav">
+      <div class="slot-hint">
+        <div class="slot-icon">🖼️</div>
+        <span class="slot-label">Logo এখানে</span>
+      </div>
+    </div>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="#learn">কী শিখবেন</a></li>
+    <li><a href="#pricing">দাম</a></li>
+    <li><a href="#author">Author</a></li>
+    <li><a href="#reviews">রিভিউ</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#pricing" class="nav-cta">এখনই কিনুন →</a>
+
+  <!-- Mobile toggle -->
+  <button class="nav-toggle" id="navToggle" aria-label="menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-overlay" id="navOverlay"></div>
+<div class="nav-drawer" id="navDrawer">
+  <ul>
+    <li><a href="#learn" onclick="closeNav()">কী শিখবেন</a></li>
+    <li><a href="#pricing" onclick="closeNav()">দাম ও Edition</a></li>
+    <li><a href="#author" onclick="closeNav()">Author</a></li>
+    <li><a href="#reviews" onclick="closeNav()">পাঠকদের রিভিউ</a></li>
+    <li><a href="#faq" onclick="closeNav()">FAQ</a></li>
+  </ul>
+  <a href="#pricing" class="drawer-cta" onclick="closeNav()">এখনই কিনুন →</a>
+</div>
+
+
+<!-- ══════════════════════
+     HERO
+══════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hex-deco"></div>
+  
+  <!-- Animated Network Background -->
+  <div class="hero-network-canvas">
+    <canvas id="heroCanvas"></canvas>
+  </div>
+  
+  <!-- Premium Interactive Layers -->
+  <div class="magnetic-spotlight" id="magneticSpot"></div>
+  <div class="hero-glow-1 hero-interactive-layer" id="glow1"></div>
+  <div class="hero-glow-2 hero-interactive-layer" id="glow2"></div>
+  <div class="hero-glow-3 hero-interactive-layer" id="glow3"></div>
+  <div class="hero-particles" id="heroParticles"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      <span class="badge-text">✦ KSB English Masterclass — New Edition 2024</span>
+    </div>
+    <h1 class="hero-title">কোচিং ছাড়াই<br><span class="hl">সহজে ইংরেজি</span><br>শিখুন</h1>
+    <div class="hero-en">Learn English with Confidence</div>
+    <p class="hero-desc">বাড়িতে বসেই Speak, Read ও Write করতে শিখুন। Step-by-step lessons যা সত্যিকার অর্থেই কাজ করে।</p>
+    <div class="skill-pills">
+      <div class="pill"><span class="pill-icon">🗣️</span><span>Speak</span></div>
+      <div class="pill"><span class="pill-icon">📖</span><span>Read</span></div>
+      <div class="pill"><span class="pill-icon">✍️</span><span>Write</span></div>
+      <div class="pill"><span class="pill-icon">🎯</span><span>IELTS</span></div>
+    </div>
+    <div class="hero-cta">
+      <a href="#pricing" class="btn-main"><span>START NOW!</span><span>→</span></a>
+      <div class="price-tag">
+        <span class="price-from">Starting from</span>
+        <span class="price-amount"><span class="price-currency">৳</span>299</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO BOOK IMAGE -->
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <div class="hero-glow"></div>
+      <div class="hero-img-glow"></div>
+
+      <!-- BOOK COVER IMAGE: src="book.jpg" তে বইয়ের ছবি দিন -->
+      <div class="hero-book-img img-slot on-green">
+        <img src="book imge.jpeg" alt="বইয়ের কভার" id="img-hero-book">
+        <div class="slot-hint">
+          <div class="slot-icon">📗</div>
+          <span class="slot-label">বইয়ের কভার<br>এখানে বসাবেন</span>
+        </div>
+      </div>
+
+      <span class="book-badge-pages">✦ 200+ Lessons Inside</span>
+      <span class="book-badge">LEVEL UP! 🚀</span>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="h-stat"><span class="h-stat-num">10K+</span><span class="h-stat-lbl">Readers</span></div>
+    <div class="h-sep"></div>
+    <div class="h-stat"><span class="h-stat-num">4.9★</span><span class="h-stat-lbl">Rating</span></div>
+    <div class="h-sep"></div>
+    <div class="h-stat"><span class="h-stat-num">200+</span><span class="h-stat-lbl">Lessons</span></div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+
+<!-- ══════════════════════
+     WHAT YOU LEARN
+══════════════════════ -->
+<section class="section-learn" id="learn">
+  <div class="inner">
+    <span class="sec-tag reveal">✦ বইয়ে কী আছে</span>
+    <h2 class="sec-h reveal">আপনি যা <span class="yl">শিখতে পারবেন</span></h2>
+    <p class="sec-sub reveal">কোনো coaching ছাড়াই, নিজের গতিতে, বাড়িতে বসে সম্পূর্ণ ইংরেজি শেখার রোডম্যাপ।</p>
+    <div class="learn-grid">
+      <div class="learn-card reveal"><span class="learn-num">01</span><span class="learn-icon">🗣️</span><h3>Daily Conversation</h3><p>Basic থেকে advanced পর্যন্ত daily life-এর সব পরিস্থিতিতে confidently কথা বলুন।</p></div>
+      <div class="learn-card reveal d1"><span class="learn-num">02</span><span class="learn-icon">📚</span><h3>Grammar & Vocabulary</h3><p>Simple tricks দিয়ে grammar মুখস্থ না করেও বুঝুন। Vocabulary রোজকার কাজে লাগান।</p></div>
+      <div class="learn-card reveal d2"><span class="learn-num">03</span><span class="learn-icon">💼</span><h3>Professional English</h3><p>Job interview, email writing, presentation — professional life-এ এগিয়ে থাকুন।</p></div>
+      <div class="learn-card reveal"><span class="learn-num">04</span><span class="learn-icon">📝</span><h3>Reading & Writing</h3><p>News, articles, letters — সব ধরনের writing ও reading skill develop করুন।</p></div>
+      <div class="learn-card reveal d1"><span class="learn-num">05</span><span class="learn-icon">🎯</span><h3>IELTS Preparation</h3><p>IELTS-এর জন্য targeted practice। Score improve করার proven strategies।</p></div>
+      <div class="learn-card reveal d2"><span class="learn-num">06</span><span class="learn-icon">🚀</span><h3>Real-life Examples</h3><p>Theory নয়, real-life situations দিয়ে শেখা। Practical exercises প্রতিটি lesson-এ।</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     AUTHOR SECTION
+══════════════════════ -->
+<section class="section-author" id="author">
+  <div class="inner">
+    <div class="author-grid">
+      <!-- AUTHOR IMAGE: src="book.jpg" তে author-এর ছবি দিন -->
+      <div class="author-img-frame reveal">
+        <div class="author-img img-slot on-green">
+          <img src="writer.jpg" alt="Author" id="img-author">
+          <div class="slot-hint">
+            <div class="slot-icon">👤</div>
+            <span class="slot-label">Author-এর ছবি<br>এখানে বসাবেন</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="author-info reveal d1">
+        <span class="author-tag">✦ Meet the Author</span>
+        <h2 class="author-name">Kicu Shiki Banglay (KSB) </h2>
+        <span class="author-role">English Educator · KSB Founder</span>
+        <p class="author-bio">ইংরেজি শিখতে চান, কিন্তু শুরুটা কোথা থেকে করবেন বুঝতে পারছেন না?
+                          KSB (Kicu Shiki Banglay)–এর কোচিং ছাড়াই সহজে ইংরেজি শিখুন বইটি ঠিক সেই জায়গাতেই আপনাকে হাত ধরে এগিয়ে নেবে। <br> <br>
+                          
+                          এই বইয়ে কোনো কঠিন ব্যাকরণ মুখস্থ করানো হবে না। বরং বাংলা দিয়ে, ধাপে ধাপে, বাস্তব উদাহরণে ইংরেজি শেখানো হয়েছে—যাতে আপনি ভয় নয়, আত্মবিশ্বাস নিয়ে ইংরেজিতে Speak, Read, Write করতে পারেন।
+                          
+                          <br>আপনি যদি—
+                          
+                          ইংরেজিতে কথা বলতে গিয়ে আটকে যান
+                          
+                          শব্দভাণ্ডার বাড়াতে চান
+                          
+                          IELTS বা ইংরেজি পরীক্ষার জন্য প্রস্তুতি নিতে চান
+                          
+                          কোচিং ছাড়াই নিজে নিজে শিখতে চান
+                          
+                          তাহলে এই বইটি আপনার জন্যই লেখা।<br>
+                          
+                          এটা শুধু একটা বই না, এটা একটা মাস্টারক্লাস—যা আপনাকে শূন্য থেকে আত্মবিশ্বাসী ইংরেজি ব্যবহারকারী বানানোর লক্ষ্য নিয়ে তৈরি। প্রতিটি পৃষ্ঠা পড়তে পড়তেই মনে হবে—
+                          
+                          “আচ্ছা, ইংরেজি তো আসলে এত সহজ!”<br>
+                          
+                          আজই পড়া শুরু করুন।
+                          নিজেকে এক ধাপ Level Up! করার সেরা সময় এখনই।</p>
+        <div class="author-social">
+          <a href="#" class="social-link">Facebook</a>
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">YouTube</a>
+          <a href="#" class="social-link">Email করুন</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     PRICING
+══════════════════════ -->
+<section class="section-pricing" id="pricing">
+  <div class="inner">
+    <div class="pricing-top">
+      <span class="sec-tag reveal">✦ বই কিনুন</span>
+      <h2 class="sec-h reveal">আপনার <span class="yl">Edition</span> বেছে নিন</h2>
+      <p class="pricing-sub reveal">সব edition-এ একই content — শুধু format আলাদা</p>
+    </div>
+    <div class="cards-grid">
+      <div class="p-card reveal">
+        <span class="p-format">Digital Edition</span>
+        <div class="p-price"><sup>৳</sup>250</div>
+        <span class="p-currency">Instant Download · PDF</span>
+        <div class="p-divider"></div>
+        <ul class="p-features">
+          <li>PDF format</li>
+          <li>Payment-এর পরে instant delivery</li>
+          <li>যেকোনো device-এ পড়া যাবে</li>
+          <li>Lifetime access</li>
+        </ul>
+        <a href="#" class="btn-buy"><span>Digital Copy নিন →</span></a>
+      </div>
+      <div class="p-card hot reveal d1">
+        <span class="p-badge">সবচেয়ে জনপ্রিয়</span>
+        <span class="p-format">Paperback Edition</span>
+        <div class="p-price"><sup>৳</sup>299</div>
+        <span class="p-currency">সারা বাংলাদেশে ডেলিভারি (চার্জ প্রযোজ্য)*</span>
+        <div class="p-divider"></div>
+        <ul class="p-features">
+          <li>Premium print quality</li>
+          <li>Author's signature available</li>
+          <li>+ Digital copy FREE</li>
+          <li>৫–৭ দিনের মধ্যে delivery</li>
+        </ul>
+        <a href="#" class="btn-buy"><span>Paperback অর্ডার করুন →</span></a>
+      </div>
+      <div class="p-card reveal d2">
+        <span class="p-format">Signed Premium Bundle</span>
+        <div class="p-price"><sup>৳</sup>999</div>
+        <span class="p-currency">Limited Stock Available</span>
+        <div class="p-divider"></div>
+        <ul class="p-features">
+          <li>Hardcover + author signature</li>
+          <li>Personalised message লেখা থাকবে</li>
+          <li>Exclusive study materials bonus</li>
+          <li>+ Digital copy FREE</li>
+        </ul>
+        <a href="#" class="btn-buy"><span>Premium Bundle নিন →</span></a>
+      </div>
+    </div>
+    <div class="payment-row reveal">
+      <span class="pay-label">Payment:</span>
+      <span class="pay-method">bKash</span>
+      <span class="pay-method">Nagad</span>
+      <span class="pay-method">Rocket</span>
+      <span class="pay-method">Card</span>
+      <span class="pay-method">Cash on Delivery</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     REVIEWS
+══════════════════════ -->
+<section class="section-reviews" id="reviews">
+  <div class="reviews-inner">
+    <div class="reviews-top">
+      <div>
+        <span class="sec-tag">✦ পাঠকদের মতামত</span>
+        <h2 class="sec-h">তারা কী <span class="yl">বলছেন</span></h2>
+      </div>
+      <div class="overall-rating">
+        <span class="rating-big">4.9</span>
+        <span class="rating-stars">★★★★★</span>
+        <span class="rating-count">500+ verified reviews</span>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="r-card reveal">
+        <div class="r-stars"><span>★★★★★</span></div>
+        <p class="r-text">"এই বইটা পড়ার পর আমার confidence এতটাই বেড়েছে যে এখন office-এ English-এ কথা বলতে আর ভয় লাগে না।"</p>
+        <div class="r-author">
+          <div class="r-avatar-fallback">র</div>
+          <div><span class="r-name">রাহেলা বেগম</span><span class="r-role">ঢাকা · Verified Reader</span></div>
+        </div>
+      </div>
+      <div class="r-card reveal d1">
+        <div class="r-stars"><span>★★★★★</span></div>
+        <p class="r-text">"IELTS-এর জন্য অনেক expensive coaching করেছিলাম, কিন্তু এই বইয়ের lessons আরও বেশি helpful ছিল।"</p>
+        <div class="r-author">
+          <div class="r-avatar-fallback">ম</div>
+          <div><span class="r-name">মাহমুদ হাসান</span><span class="r-role">চট্টগ্রাম · IELTS Student</span></div>
+        </div>
+      </div>
+      <div class="r-card reveal d2">
+        <div class="r-stars"><span>★★★★★</span></div>
+        <p class="r-text">"আমার মেয়েকে কিনে দিয়েছিলাম। সে বলছে school-এ English-এ এখন সে সবার চেয়ে ভালো করছে।"</p>
+        <div class="r-author">
+          <div class="r-avatar-fallback">ফ</div>
+          <div><span class="r-name">ফারুক আহমেদ</span><span class="r-role">সিলেট · Parent</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     FAQ
+══════════════════════ -->
+<section class="section-faq" id="faq">
+  <div class="faq-inner">
+    <div class="faq-top">
+      <span class="sec-tag reveal">✦ প্রশ্ন ও উত্তর</span>
+      <h2 class="sec-h reveal">সাধারণ জিজ্ঞাসা</h2>
+    </div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">Digital copy কীভাবে পাব?</span><span class="faq-ic">+</span></div><div class="faq-ans"><p>Payment confirm হওয়ার পরে আপনার email-এ PDF এবং EPUB format-এর download link পাঠানো হবে। সাধারণত ৫–১০ মিনিটের মধ্যে চলে আসে।</p></div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">Paperback delivery কতদিনে পাব?</span><span class="faq-ic">+</span></div><div class="faq-ans"><p>ঢাকার ভেতরে ২–৩ দিন এবং ঢাকার বাইরে ৫–৭ কার্যদিবসের মধ্যে delivery দেওয়া হয়। সারা বাংলাদেশে free delivery।</p></div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">Signed copy-তে কি নিজের নাম লেখাতে পারব?</span><span class="faq-ic">+</span></div><div class="faq-ans"><p>হ্যাঁ! Order করার সময় আপনার পছন্দের message বা নাম লিখে দিলে author নিজে হাতে লিখে দেবেন।</p></div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">bKash / Nagad-এ কীভাবে payment করব?</span><span class="faq-ic">+</span></div><div class="faq-ans"><p>Order করার পরে আপনাকে payment number এবং process জানানো হবে। বা সরাসরি আমাদের Facebook page বা WhatsApp-এ message করুন।</p></div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">বইটা কি beginner-দের জন্য?</span><span class="faq-ic">+</span></div><div class="faq-ans"><p>হ্যাঁ, সম্পূর্ণ beginner থেকে intermediate পর্যন্ত সবার জন্য এই বই তৈরি করা হয়েছে। কোনো prior knowledge দরকার নেই।</p></div></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     FOOTER
+══════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <!-- FOOTER LOGO: src="book.jpg" তে logo দিন -->
+        <div class="footer-logo">
+          <div class="img-slot on-green">
+            <img src="logo-main.png.png" alt="KSB Logo" id="img-logo-footer">
+            <div class="slot-hint">
+              <div class="slot-icon">🖼️</div>
+              <span class="slot-label">Logo</span>
+            </div>
+          </div>
+        </div>
+        <p class="footer-tagline">কোচিং ছাড়াই ইংরেজি শেখার সবচেয়ে সহজ পথ।<br>Kicu Shiki Banglay — শেখার আনন্দ।</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col"><h4>Book</h4><ul><li><a href="#learn">কী শিখবেন</a></li><li><a href="#pricing">দাম ও Edition</a></li><li><a href="#reviews">পাঠকদের মতামত</a></li><li><a href="#">Sample পড়ুন</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><ul><li><a href="https://www.facebook.com/profile.php?id=61586572419974">Facebook Page</a></li><li><a href="https://www.youtube.com/@KicuShikiBanglay243">youtube</a></li><li><a href="https://web.whatsapp.com/">WhatsApp</a></li><li><a href="kicushikibanglay@gmail.com">Email করুন</a></li></ul></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="f-copy">© 2024 KSB · Kicu Shiki Banglay · All rights reserved</span>
+      <div class="f-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Sale</a></div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+/* ── Cursor ── */
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function anim(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.querySelectorAll('a,button,.faq-q').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';cur.style.background='transparent';cur.style.border='1.5px solid var(--y)';ring.style.width='52px';ring.style.height='52px';});
+  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';cur.style.background='var(--y)';cur.style.border='none';ring.style.width='36px';ring.style.height='36px';});
+});
+
+/* ── Premium Hero Interactive Effect ── */
+(function(){
+  const hero = document.querySelector('.hero');
+  if(!hero) return;
+  
+  const canvas = document.getElementById('heroCanvas');
+  if(!canvas) return;
+  
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  
+  // Resize canvas
+  function resizeCanvas(){
+    width = hero.offsetWidth;
+    height = hero.offsetHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  
+  // Network particles
+  class NetworkParticle {
+    constructor(){
+      this.reset();
+      this.y = Math.random() * height;
+    }
+    
+    reset(){
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.vx = (Math.random() - 0.5) * 0.5;
+      this.vy = (Math.random() - 0.5) * 0.5;
+      this.radius = Math.random() * 2 + 1;
+    }
+    
+    update(){
+      this.x += this.vx;
+      this.y += this.vy;
+      
+      // Wrap around edges
+      if(this.x < 0) this.x = width;
+      if(this.x > width) this.x = 0;
+      if(this.y < 0) this.y = height;
+      if(this.y > height) this.y = 0;
+    }
+    
+    draw(){
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(245, 197, 24, 0.6)';
+      ctx.fill();
+    }
+  }
+  
+  // Create particles
+  const particleCount = 80;
+  const particles = [];
+  for(let i = 0; i < particleCount; i++){
+    particles.push(new NetworkParticle());
+  }
+  
+  // Mouse position
+  let mouse = {
+    x: null,
+    y: null,
+    radius: 150
+  };
+  
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  
+  hero.addEventListener('mouseleave', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+  
+  // Draw connections
+  function drawConnections(){
+    for(let i = 0; i < particles.length; i++){
+      for(let j = i + 1; j < particles.length; j++){
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if(distance < 120){
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(245, 197, 24, ${0.2 * (1 - distance / 120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+      
+      // Connect to mouse
+      if(mouse.x !== null && mouse.y !== null){
+        const dx = particles[i].x - mouse.x;
+        const dy = particles[i].y - mouse.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if(distance < mouse.radius){
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(245, 197, 24, ${0.5 * (1 - distance / mouse.radius)})`;
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+          
+          // Attract particles to mouse
+          const angle = Math.atan2(dy, dx);
+          const force = (mouse.radius - distance) / mouse.radius;
+          particles[i].vx -= Math.cos(angle) * force * 0.3;
+          particles[i].vy -= Math.sin(angle) * force * 0.3;
+        }
+      }
+    }
+  }
+  
+  // Animation loop
+  function animate(){
+    ctx.clearRect(0, 0, width, height);
+    
+    particles.forEach(particle => {
+      particle.update();
+      particle.draw();
+    });
+    
+    drawConnections();
+    
+    requestAnimationFrame(animate);
+  }
+  
+  animate();
+  
+  // Other interactive elements
+  const magneticSpot = document.getElementById('magneticSpot');
+  const glow1 = document.getElementById('glow1');
+  const glow2 = document.getElementById('glow2');
+  const glow3 = document.getElementById('glow3');
+  const heroBg = document.querySelector('.hero-bg');
+  
+  let isInHero = false;
+  
+  hero.addEventListener('mouseenter', () => {
+    isInHero = true;
+    if(magneticSpot) magneticSpot.style.opacity = '1';
+  });
+  
+  hero.addEventListener('mouseleave', () => {
+    isInHero = false;
+    if(magneticSpot) magneticSpot.style.opacity = '0';
+  });
+  
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
+    const heroMouseX = e.clientX - rect.left;
+    const heroMouseY = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const deltaX = (heroMouseX - centerX) / centerX;
+    const deltaY = (heroMouseY - centerY) / centerY;
+    
+    // Magnetic spotlight
+    if(magneticSpot){
+      magneticSpot.style.left = heroMouseX + 'px';
+      magneticSpot.style.top = heroMouseY + 'px';
+    }
+    
+    // Background parallax
+    if(heroBg){
+      heroBg.style.transform = `translate(${deltaX * 15}px, ${deltaY * 15}px)`;
+    }
+    
+    // Glow layers parallax
+    if(glow1) glow1.style.transform = `translate(${deltaX * 30}px, ${deltaY * 30}px)`;
+    if(glow2) glow2.style.transform = `translate(${-deltaX * 25}px, ${-deltaY * 25}px)`;
+    if(glow3) glow3.style.transform = `translate(${deltaX * 20}px, ${deltaY * 20}px) translate(-50%, -50%)`;
+  });
+})();
+
+/* ── Mobile Nav ── */
+const toggle=document.getElementById('navToggle');
+const drawer=document.getElementById('navDrawer');
+const overlay=document.getElementById('navOverlay');
+toggle.addEventListener('click',()=>{drawer.classList.add('open');overlay.style.display='block';setTimeout(()=>overlay.classList.add('open'),10);});
+overlay.addEventListener('click',closeNav);
+function closeNav(){drawer.classList.remove('open');overlay.classList.remove('open');setTimeout(()=>overlay.style.display='none',350);}
+
+/* ── Scroll Reveal ── */
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ── FAQ ── */
+function toggleFaq(el){
+  const item=el.parentElement;
+  const open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!open)item.classList.add('open');
+}
+
+/* ── Image Upload Helper ──
+   Click on any placeholder to upload an image
+   (works locally — on live server use proper upload flow)
+── */
+
+document.querySelectorAll('.img-slot').forEach(slot=>{
+  slot.style.cursor='pointer';
+  slot.addEventListener('click',function(){
+    const img=this.querySelector('img');
+    if(!img)return;
+    const input=document.createElement('input');
+    input.type='file';input.accept='image/*';
+    input.onchange=e=>{
+      const file=e.target.files[0];
+      if(!file)return;
+      const url=URL.createObjectURL(file);
+      img.src=url;
+      img.onload=()=>img.classList.add('loaded');
+    };
+    input.click();
+  });
+});
+</script>
+</body>
+</html>
